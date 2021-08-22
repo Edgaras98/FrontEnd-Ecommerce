@@ -34,6 +34,10 @@
           div.style.margin = "2rem";
           div.style.backgroundColor = "white";
           div.style.display = "inline-block";
+          div.style.cursor = "pointer";
+          div.addEventListener("click", () => {
+            location.href = `/products.html?item=${element._id}`;
+          });
           //styling img
           img.src = element.url;
           img.style.width = "10rem";
