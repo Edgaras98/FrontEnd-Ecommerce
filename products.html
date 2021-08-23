@@ -5,6 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
@@ -15,8 +21,76 @@
     <title>Document</title>
   </head>
   <body>
-    <a href="index.html">Go back to list</a>
+    <a href="index.html" id="back">Go back to list</a>
     <div id="output"></div>
   </body>
-  <script></script>
+  <script>
+    const queryString = window.location.search;
+
+    const params = queryString.split("=")[1];
+
+    const url = "http://localhost:8080/products";
+
+    const output = document.getElementById("output");
+
+    const getProduct = async (url, params) => {
+      try {
+        const response = await fetch(`${url}/${params}`).then((data) =>
+          data.json()
+        );
+
+        return response;
+      } catch (err) {
+        return console.error(err);
+      }
+    };
+
+    getProduct(url, params).then((data) => renderDataToElement(data, output));
+
+    const renderDataToElement = (data, element) => {
+      if (data.length === 0) {
+        return console.log("No data");
+      }
+
+      const product = data[0];
+      //Styling main div
+      const div = document.createElement("div");
+      div.style.display = "flex";
+      div.style.justifyContent = "center";
+      div.style.padding = "5rem";
+      //img
+      const img = document.createElement("img");
+      img.style.width = "30%";
+      img.src = product.url;
+      const pPrice = document.createElement("p");
+
+      const pTitle = document.createElement("p");
+
+      const pDescription = document.createElement("p");
+
+      const divHero = document.createElement("div");
+      //Styling Title
+      pTitle.textContent = product.brand;
+      pTitle.style.fontSize = "2rem";
+
+      pDescription.textContent = product.description;
+
+      pPrice.textContent = `${product.price}€`;
+
+      //Styling product description div
+
+      divHero.append(pTitle, pDescription, pPrice);
+      divHero.style.width = "40%";
+      divHero.style.textAlign = "left";
+      divHero.style.padding = "10rem";
+      //Price styling
+      pPrice.style.textAlign = "center";
+      pPrice.textContent = `${product.price}€`;
+      pPrice.style.fontSize = "2rem";
+      pPrice.style.color = "red";
+      div.append(img, divHero);
+
+      element.appendChild(div);
+    };
+  </script>
 </html>

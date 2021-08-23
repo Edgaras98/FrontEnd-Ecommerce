@@ -5,6 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
@@ -14,8 +20,34 @@
     />
     <title>Document</title>
   </head>
-  <body></body>
+  <body>
+    <header>
+      <div class="container">
+        <img
+          src="https://images-platform.99static.com//zvgtch1g-AfvYKsLleHclChDLYE=/222x209:1707x1694/fit-in/500x500/projects-files/101/10165/1016553/09deac31-4bdc-4bb6-b6f2-e644b4ff0500.png"
+          alt="shoes"
+        />
+        <nav>
+          <a href="">About Us</a>
+          <a href="#products">Our products</a>
+          <a href="">Contact us</a>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <div class="slider">
+        <h1>Find you fit - feed your passion</h1>
+        <img
+          src="https://cdn.luxe.digital/media/2021/01/01184416/best-men-sneakers-2021-designer-review-luxe-digital%402x.jpg"
+          alt=""
+        />
+      </div>
+      <h1 id="product">Browse our products</h1>
+      <section id="products"></section>
+    </main>
+  </body>
   <script>
+    const products = document.getElementById("products");
     fetch("http://localhost:8080/")
       .then((res) => res.json())
       .then((data) => {
@@ -27,9 +59,13 @@
           //Styling h1
           h1.textContent = element.brand;
           h1.style.backgroundColor = "white";
+          h1.style.fontSize = "1.5rem";
+          h1.style.textAlign = "left";
+          h1.style.padding = "1rem";
           //Styling div
-          div.style.width = "15%";
-          div.style.border = "1px solid black";
+          div.style.width = "15rem";
+          div.style.width = "20rem";
+          div.style.border = "1px solid lightgrey";
           div.style.textAlign = "center";
           div.style.margin = "2rem";
           div.style.backgroundColor = "white";
@@ -40,12 +76,16 @@
           });
           //styling img
           img.src = element.url;
-          img.style.width = "10rem";
+          img.style.width = "20rem";
+          img.style.height = "20rem";
+          img.style.objectFit = "cover";
           //styling p
+          p.style.color = "red";
           p.style.backgroundColor = "white";
+          p.style.padding = "0.5rem";
           p.textContent = element.price + " Eur";
           div.append(img, h1, p);
-          document.body.append(div);
+          products.append(div);
         });
       });
   </script>
